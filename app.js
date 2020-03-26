@@ -1,27 +1,31 @@
-var express = require("express"); //pull in the express dependency
-var app = express(); // app is the primary variable
-var bodyParser = require("body-parser"); //to post data we need body parser
+const express = require("express"); //pull in the express dependency
+const app = express(); // app is the primary variable
+const bodyParser = require("body-parser"); //to post data we need body parser
 //temp database like an object
-var books = [{
+const books = [{
         id: 1,
         name: "book1"
     },
     {
         id: 2,
         name: "book2"
+    },
+    {
+        id: 3,
+        name: "book3"
     }
 ];
 
-var currentId = 2;
+var currentId = 3;
 
-var PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 
 app.use(express.static(__dirname));
 app.use(bodyParser.json());
 
 
 //define route
-app.get('/books', function (req, res) {
+app.get('/books', (req, res) => {
     // default method is GET so we dont have to define it
     res.send({
         books: books
@@ -29,7 +33,7 @@ app.get('/books', function (req, res) {
 });
 
 //post method
-app.post('/books', function (req, res) {
+app.post('/books', (req, res) => {
     var bookName = req.body.name;
     /*we did body.name since we have declared data: JSON.stringify({name:createInpt.val()})*/
     currentId++;
@@ -43,15 +47,16 @@ app.post('/books', function (req, res) {
 
 });
 
+
 //put method
-app.put('/books/:id', function (req, res) {
+app.put('/books/:id', (req, res) => {
     var id = req.params.id;
     var newName = req.body.newName;
     console.log(newName);
     console.log(id + ' got from the server side. ');
 
     var found = false; //for iteration
-    books.forEach(function (book, index) {
+    books.forEach((book, index) => {
         if (!found && (book.id === Number(id))) {
             book.name = newName;
         }
@@ -60,14 +65,14 @@ app.put('/books/:id', function (req, res) {
 });
 
 //delete method
-app.delete('/books/:id', function (req, res) {
+app.delete('/books/:id', (req, res) => {
     var id = req.params.id;
     var newName = req.body.newName;
     console.log(newName);
     console.log(id + ' got from the server side. ');
 
     var found = false; //for iteration
-    books.forEach(function (book, index) {
+    books.forEach((book, index) => {
         if (!found && (book.id === Number(id))) {
             books.splice(index, 1); //to delete at that index
 
@@ -77,6 +82,6 @@ app.delete('/books/:id', function (req, res) {
 });
 
 
-app.listen(PORT, function () {
+app.listen(PORT, () => {
     console.log('Server listening on port number ' + PORT);
 });

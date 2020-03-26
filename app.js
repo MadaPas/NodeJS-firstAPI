@@ -1,5 +1,8 @@
 const express = require("express"); //pull in the express dependency
 const app = express(); // app is the primary variable
+app.use(express.urlencoded({
+    extended: false
+}));
 const bodyParser = require("body-parser"); //to post data we need body parser
 //temp database like an object
 const books = [{
@@ -15,6 +18,7 @@ const books = [{
         name: "book3"
     }
 ];
+
 
 var currentId = 3;
 
@@ -81,6 +85,13 @@ app.delete('/books/:id', (req, res) => {
     res.send('Successfully deleted!');
 });
 
+
+//set the server to use static as a static folder
+app.use(express.static('static'));
+
+app.get("/", (req, res) => {
+    return res.sendFile(__dirname + "/static/html/index.html");
+});
 
 app.listen(PORT, () => {
     console.log('Server listening on port number ' + PORT);

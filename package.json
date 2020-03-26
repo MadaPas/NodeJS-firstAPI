@@ -1,16 +1,25 @@
 {
-  "name": "ajax-api-tutorial",
+  "name": "ajax-api",
   "version": "1.0.0",
-  "description": "",
-  "main": "jquery.js",
+  "description": "api using ajax calls",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "cross-env PORT=80 node app.js",
+    "start-dev": "cross-env PORT=3000 nodemon app.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "ajax",
+    "api",
+    "books"
+  ],
+  "author": "MadaPas",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.17.2",
-    "express": "^4.15.4"
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.2"
   }
 }
